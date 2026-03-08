@@ -6,7 +6,7 @@
     color: #64748B;
 }
 
-.open-closed span {
+#open, #closed {
     display: inline-block; 
     height: 12px;
     width: 12px;
@@ -14,10 +14,10 @@
     margin-right: 4px;
 }
 
-#open span {
+#open {
     background-color: #00A96E;
 }
-#closed span {
+#closed {
     background-color: #A855F7;
 }
 
@@ -33,6 +33,11 @@
 .yellow-bg {
     background-color: #FDE68A;
     color: #D97706;
+}
+
+.green-bg {
+    background-color: #BBF7D0;
+    color: #00A96E;
 }
 
 .issue-number-container img {

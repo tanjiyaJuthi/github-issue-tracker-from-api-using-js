@@ -1,6 +1,73 @@
 let allIssues = [];
 let currentStatus = 'all';
 
+// format user name
+const getName = (name) => {
+    return name
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase());
+};
+
+// get date only
+const getDate = (issue) => {
+    return issue.updatedAt.split('T')[0];
+};
+
+// show modal
+const displayIssueModal = async(issueId) => {
+    const issueModal = document.querySelector('#issue-modal');
+
+    const issueUrl = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${issueId}`;
+    const issueRes = await fetch(issueUrl);
+    const issueD = await issueRes.json();
+    const issueData = issueD.data;
+    console.log(issueData);
+
+    issueModal.innerHTML = `
+        <dialog id="issueModal" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <div class="issue-detaills space-y-6">
+                    <div class="issue-open-close-container">
+                        <h3 class="font-semibold text-[24px]">${issueData.title}</h3>
+                        <div class="flex items-center gap-1 justify between">
+                            <p class="${issueData.status === 'open' ? 'green-bg' : 'purple-bg'} text-white py-1 px-3 rounded-2xl">${issueData.status === 'open' ?  'Open' : 'Closed'}</p>
+                            <p><p class="gray-dot"></p> Opened by ${getName(issueData.author) ? getName(issueData.author) : 'Not Applicable'}</p>
+                            <p><p class="gray-dot"></p> ${getDate(issueData)}</p>
+                        </div>
+                    </div>
+                
+                    <p class="gray-color">${issueData.description}</p>
+
+                    <div class="bug-help-enhance uppercase space-y-2">
+                        ${renderLabels(issueData.labels)}
+                    </div>
+
+                    <div class="assigne-priority bg-[#F8FAFC] p-4 flex items-center justify-between mt-6">
+                        <div class="assigne">
+                            <p class="text-gray-color">Assignee:</p>
+                            <p>${getName(issueData.assignee) ? getName(issueData.assignee) : 'Not applicable'}</p>
+                        </div>
+                        
+                        <div class="priority">
+                            <p>Priority:</p>
+                            <p class="${getPriorityStyle(issueData.priority)} font-medium text-[12px] text-center max-w-[80px] rounded-2xl py-[6px] uppercase">${issueData.priority}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button class="btn btn-primary">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+    `;
+
+    const issueDialog = document.querySelector('#issueModal');
+    issueDialog.showModal();
+};
+
 // priority styles
 const getPriorityStyle = (priority) => {
     const data = {
@@ -126,8 +193,6 @@ const renderIssues = (status) => {
     }
 
     filteredIssues.forEach(issue => {
-        const updatedAt = (issue.updatedAt).split('T')[0];
-
         issueBottomContainer.innerHTML += `
             <div id="issue-card" class="card bg-base-100 shadow-lg border-t-4 ${issue.status === 'open' ? 'border-[#00A96E]' : 'border-[#A855F7]'}">
                 <div class="card-body space-y-3">
@@ -142,7 +207,7 @@ const renderIssues = (status) => {
                     </div>
 
                     <div class="issue-description">
-                        <h3 class="font-semibold text-[14px]">${issue.title}</h3>
+                        <h3 onclick="displayIssueModal(${issue.id})" class="clickable-title font-semibold text-[14px]">${issue.title}</h3>
                     
                         <p class="gray-color text-[12px] pt-2">${issue.description}</p>
                     </div>
@@ -155,8 +220,8 @@ const renderIssues = (status) => {
                 <div class="border-t border-[#E4E4E7]"></div>
 
                 <div class="card-body gray-color text-[12px]">
-                    <p>#${issue.id} by ${issue.author}</p>
-                    <p>${updatedAt}</p>
+                    <p>#${issue.id} by ${getName(issue.author)}</p>
+                    <p>${getDate(issue)}</p>
                 </div>
             </div>
         `;
@@ -242,8 +307,6 @@ const searchIssues = (searchText) => {
     }
 
     filtered.forEach(issue => {
-        const updatedAt = issue.updatedAt.split('T')[0];
-
         issueBottomContainer.innerHTML += `
             <div class="card bg-base-100 shadow-lg border-t-4 ${issue.status === 'open' ? 'border-[#00A96E]' : 'border-[#A855F7]'}">
                 <div class="card-body space-y-3">
@@ -271,8 +334,8 @@ const searchIssues = (searchText) => {
                 <div class="border-t border-[#E4E4E7]"></div>
 
                 <div class="card-body gray-color text-[12px]">
-                    <p>#${issue.id} by ${issue.author}</p>
-                    <p>${updatedAt}</p>
+                    <p>#${issue.id} by ${getName(issue.author)}</p>
+                    <p>${getDate(issue)}</p>
                 </div>
             </div>
         `;

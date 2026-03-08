@@ -25,6 +25,11 @@
     width: 120px;
 }
 
+.purple-bg {
+    background-color: #d5b7f1;
+    color: #A855F7;
+}
+
 .red-bg {
     background-color: #FEECEC;
     color: #EF4444;
@@ -48,6 +53,17 @@
 .issue-number-container img {
     width: 50px;
     height: 50px;
+}
+
+.gray-dot {
+    height: 5px;
+    width: 5px;
+    background-color: #64748B;
+    border-radius: 50%;;
+}
+
+.clickable-title:hover {
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {

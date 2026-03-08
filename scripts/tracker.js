@@ -1,6 +1,19 @@
 let allIssues = [];
 let currentStatus = 'all';
 
+// priority styles
+const getPriorityStyle = (priority) => {
+    const data = {
+        low: 'gray-bg',
+        medium: 'yellow-bg',
+        high: 'red-bg'
+    };
+
+    const pData = data[priority.toLowerCase()];
+
+    return pData;
+};
+
 // show active class in button
 const activeButton = (trackerBtn) => {
     const trackerBtns = document.querySelectorAll('.issue-tracker-btn');
@@ -113,7 +126,7 @@ const renderIssues = (status) => {
                             <img src="assets/${issue.status === 'open' ? 'open-status.png' : 'closed-status.png' }" alt="${issue.status}">
                         </figure>
 
-                        <p id="issue-frequency" class="red-bg font-medium text-[12px] text-center max-w-[80px] rounded-2xl py-[6px] uppercase">
+                        <p id="issue-frequency" class="${getPriorityStyle(issue.priority)} font-medium text-[12px] text-center max-w-[80px] rounded-2xl py-[6px] uppercase">
                             ${issue.priority}
                         </p>
                     </div>

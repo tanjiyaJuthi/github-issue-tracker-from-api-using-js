@@ -23,7 +23,7 @@
     <header>
         <div class="navbar bg-base-100 shadow-sm">
             <div class="navbar-start">
-                <div class="dropdown">
+                <!-- <div class="dropdown">
                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
                     </div>
@@ -33,15 +33,15 @@
                         <li><a>Item 1</a></li>
                         <li><a>Item 3</a></li>
                     </ul>
-                </div>
-                <a class="flex text-xl">
+                </div> -->
+                <a class="flex items-center text-xl">
                     <img class="w-7 h-7 mr-1" src="assets/github-logo.png" alt="GitHub Issues Tracker">
-                    <span class="text-xl font-semibold">GitHub Issues Tracker</span>
+                    <span class="text-sm md:text-xl font-semibold">GitHub Issues Tracker</span>
                 </a>
             </div>
 
             <div class="navbar-end">
-                <label class="input mr-4">
+                <label class="input mr-1 md:mr-4 p-1 max-h-[33px] md:max-h-none">
                     <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <g
                         stroke-linejoin="round"
@@ -55,33 +55,33 @@
                         </g>
                     </svg>
 
-                    <input type="search" required placeholder="Search Issues ..." />
+                    <input name="issue-search" class="outline-none focus:outline-none focus:ring-0 focus:border-transparent" type="search" required placeholder="Search Issues ..." />
                 </label>
 
-                <button class="btn btn-primary">+ New Issue</button>
+                <button class="btn btn-primary btn-sm md:btn-md text-white">+ New Issue</button>
             </div>
         </div>
     </header>
 
     <main class="bg-[#f8fafc]">
-        <div class="main-container max-w-[1110px] mx-auto pt-[60px] pb-[60px]">
+        <div class="main-container max-w-[1110px] mx-auto md:pt-[60px] md:pb-[60px]">
             <section class="tab-container bg-white shadow-lg rounded-lg p-6">
-                <button data-id="tab-all" class="btn btn-primary btn-large">All</button>
-                <button data-id="tab-open" class="btn btn-neutral btn-outline border-[#E4E4E7] text-[#64748B] hover:bg-primary hover:text-white hover:border-0">Open</button>
-                <button data-id="tab-closed" class="btn btn-neutral btn-outline border-[#E4E4E7] text-[#64748B] hover:bg-primary hover:text-white hover:border-0">Closed</button>
+                <button data-id="tab-all" class="btn btn-primary btn-sm md:btn-md btn-large">All</button>
+                <button data-id="tab-open" class="btn btn-neutral btn-sm md:btn-md btn-outline border-[#E4E4E7] text-[#64748B] hover:bg-primary hover:text-white hover:border-0">Open</button>
+                <button data-id="tab-closed" class="btn btn-neutral btn-sm md:btn-md btn-outline border-[#E4E4E7] text-[#64748B] hover:bg-primary hover:text-white hover:border-0">Closed</button>
             </section>
 
             <section id="issue-container" class="mt-4 shadow-lg rounded-lg">
                 <div class="issue-top-container flex justify-between items-center bg-white p-6 rounded-lg">
                     <div class="issue-number-container flex gap-2">
-                        <img class="w-12 h-12" src="assets/Aperture.png" alt="Aperture">
+                        <img class="" src="assets/Aperture.png" alt="Aperture">
                         <div class="">
-                            <p id="issue-number" class="font-semibold text-[20px]">50 Issues</p>
-                            <p class="gray-color">Track and manage your project issues</p>
+                            <p id="issue-number" class="font-semibold md:text-[20px]">50 Issues</p>
+                            <p class="text-[8px] md:text-[12px] gray-color">Track and manage your project issues</p>
                         </div>
                     </div>
 
-                    <div class="open-closed flex gap-4">
+                    <div class="text-[12px] open-closed flex items-center gap-4">
                         <p id="open"><span></span> Open</p>
                         <p id="closed"><span></span> Closed</p>
                     </div>
@@ -89,7 +89,7 @@
 
                 <hr class="border-[#E4E4E7]"/>
 
-                <div id="issue-bottom-container" class="grid grid-cols-2 md:grid-cols-4 gap-[13px] p-[25px]">
+                <div id="issue-bottom-container" class="grid grid-cols-1 md:grid-cols-4 gap-[13px] p-[25px]">
                     <div id="issue-card" class="card bg-base-100 shadow-lg border-t-3 border-[#00A96E]">
                         <div class="card-body space-y-3">
                             <div class="issue-criteria flex items-center justify-between">
@@ -109,8 +109,8 @@
                             </div>
 
                             <div class="bug-help-enhance uppercase flex items-center gap-1 text-center">
-                                <p class="red-bg border border-[#EF4444] rounded-2xl py-1"><i class="fa-solid fa-bug"></i> BUG</p>
-                                <p class="yellow-bg border border-[#D97706] rounded-2xl py-1"><i class="fa-regular fa-life-ring"></i> HELP WANTED</p>
+                                <p class="red-bg border border-[#EF4444] rounded-2xl md:py-1"><i class="fa-solid fa-bug"></i> BUG</p>
+                                <p class="yellow-bg border border-[#D97706] rounded-2xl md:py-1"><i class="fa-regular fa-life-ring"></i> HELP WANTED</p>
                             </div>
                         </div>
 
@@ -122,6 +122,7 @@
                         </div>
                     </div>
                 </div>
+                
             </section>
         </div>
     </main>

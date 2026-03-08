@@ -1,5 +1,5 @@
-# GEt and show data in website from API
-# GitHub Issues Tracker
+# Get and show data in website from API
+## GitHub Issues Tracker
 
 ### **API Endpoints:**
 ###  **All Issues:** 

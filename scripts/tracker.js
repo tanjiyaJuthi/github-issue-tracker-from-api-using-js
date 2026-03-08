@@ -147,7 +147,7 @@ const renderIssues = (status) => {
                         <p class="gray-color text-[12px] pt-2">${issue.description}</p>
                     </div>
 
-                    <div class="bug-help-enhance uppercase flex items-center gap-1 text-center">
+                    <div class="bug-help-enhance uppercase text-center space-y-2">
                         ${renderLabels(issue.labels)}
                     </div>
                 </div>

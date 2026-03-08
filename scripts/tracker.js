@@ -71,20 +71,30 @@ const renderLabels = (labels) => {
             classes: 'red-bg border border-[#EF4444] rounded-2xl md:py-1',
             icon: '<i class="fa-solid fa-bug"></i>'
         },
-        'help-wanted': {
+        'help wanted': {
             classes: 'yellow-bg border border-[#D97706] rounded-2xl md:py-1',
             icon: '<i class="fa-regular fa-life-ring"></i>'
         },
-        'ehancement' : {
+        'enhancement' : {
             classes: 'green-bg border border-[#00A96E] rounded-2xl md:py-1',
-            icon: '<i class="fa-regular fa-star"></i>'
+            icon: '<i class="fa-regular fa-lightbulb"></i>'
+        },
+        'documentation' : {
+            classes: 'yellow-bg border border-[#D97706] rounded-2xl md:py-1',
+            icon: '<i class="fa-regular fa-clipboard"></i>'
+        },
+        'good first issue' : {
+            classes: 'gray-bg border border-[#9CA3AF] rounded-2xl md:py-1',
+            icon: '<i class="fa-brands fa-goodreads"></i>'
         }
     };
+
+    if (!labels || labels.length === 0) return '';
     
     const labelData = labels.map(label => {
         const style = labelStyles[label.toLowerCase()];
 
-        if (!style) return;
+        if (!style) return '';
 
         const styleTag = `<p class="${style.classes}">${style.icon} ${label.toUpperCase()}</p>`;
 

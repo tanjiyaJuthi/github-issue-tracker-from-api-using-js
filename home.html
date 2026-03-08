@@ -55,7 +55,7 @@
                         </g>
                     </svg>
 
-                    <input name="issue-search" class="outline-none focus:outline-none focus:ring-0 focus:border-transparent" type="search" required placeholder="Search Issues ..." />
+                    <input id="issue-search" name="issue-search" class="outline-none focus-within:outline-none focus-within:ring-0 focus-within:border-transparent" type="search" required placeholder="Search Issues ..." />
                 </label>
 
                 <button class="btn btn-primary btn-sm md:btn-md text-white">+ New Issue</button>
@@ -66,9 +66,9 @@
     <main class="bg-[#f8fafc]">
         <div class="main-container max-w-[1110px] mx-auto md:pt-[60px] md:pb-[60px]">
             <section id="tab-container" class="bg-white shadow-lg rounded-lg p-6">
-                <button data-id="tab-all" class="issue-tracker-btn btn btn-neutral btn-sm md:btn-md btn-outline border-[#E4E4E7] text-[#64748B] hover:bg-primary hover:text-white hover:border-0">All</button>
-                <button data-id="tab-open" class="issue-tracker-btn btn btn-neutral btn-sm md:btn-md btn-outline border-[#E4E4E7] text-[#64748B] hover:bg-primary hover:text-white hover:border-0">Open</button>
-                <button data-id="tab-closed" class="issue-tracker-btn btn btn-neutral btn-sm md:btn-md btn-outline border-[#E4E4E7] text-[#64748B] hover:bg-primary hover:text-white hover:border-0">Closed</button>
+                <button data-id="tab-all" class="issue-tracker-btn btn btn-neutral btn-sm md:btn-md btn-outline border-[#E4E4E7] text-[#64748B] hover:bg-primary hover:text-white hover:border-0 md:min-w-[120px]">All</button>
+                <button data-id="tab-open" class="issue-tracker-btn btn btn-neutral btn-sm md:btn-md btn-outline border-[#E4E4E7] text-[#64748B] hover:bg-primary hover:text-white hover:border-0 md:min-w-[120px]">Open</button>
+                <button data-id="tab-closed" class="issue-tracker-btn btn btn-neutral btn-sm md:btn-md btn-outline border-[#E4E4E7] text-[#64748B] hover:bg-primary hover:text-white hover:border-0 md:min-w-[120px]">Closed</button>
             </section>
 
             <section id="issue-container" class="mt-4 shadow-lg rounded-lg">

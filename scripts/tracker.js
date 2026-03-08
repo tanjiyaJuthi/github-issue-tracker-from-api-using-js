@@ -193,16 +193,95 @@ const switchTab = () => {
     trackerBtns.forEach(btn => {
         btn.addEventListener('click', callTheBtn);
     });
+
+    // load all as default tab with active button
+    const defaultTab = document.querySelector('.issue-tracker-btn[data-id="tab-all"]');
+
+    activeButton(defaultTab);
+    renderIssues('all');
+    updateIssueCount('all');
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadAllIssue().then(() => {
-        const defaultTab = document.querySelector('.issue-tracker-btn[data-id="tab-all"]');
+// initialization
+const init = async () => {
+    await loadAllIssue();
+    switchTab();
+};
 
-        activeButton(defaultTab);
-        renderIssues('all');
-        updateIssueCount('all');
+init();
+
+// implement search
+const searchInput = document.querySelector('#issue-search');
+// console.log(searchInput);
+
+const searchIssues = (searchText) => {
+    const issueBottomContainer = document.querySelector('#issue-bottom-container');
+
+    const filtered = allIssues.filter(issue => {
+        const filteredStatus =
+            currentStatus === 'all'
+            ? true
+            : issue.status === currentStatus;
+            
+        const filteredSearch =
+            issue.title.toLowerCase().includes(searchText);
+
+        return filteredStatus && filteredSearch;
     });
 
-    switchTab();
+    issueBottomContainer.innerHTML = '';
+
+    if (filtered.length === 0) {
+        issueBottomContainer.innerHTML = `
+            <div class="no-issues p-6 text-center gray-color">
+                <p>No issues found</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    filtered.forEach(issue => {
+        const updatedAt = issue.updatedAt.split('T')[0];
+
+        issueBottomContainer.innerHTML += `
+            <div class="card bg-base-100 shadow-lg border-t-4 ${issue.status === 'open' ? 'border-[#00A96E]' : 'border-[#A855F7]'}">
+                <div class="card-body space-y-3">
+
+                    <div class="issue-criteria flex items-center justify-between">
+                        <figure>
+                            <img src="assets/${issue.status === 'open' ? 'open-status.png' : 'closed-status.png'}">
+                        </figure>
+
+                        <p class="${getPriorityStyle(issue.priority)} font-medium text-[12px] text-center max-w-[80px] rounded-2xl py-[6px] uppercase">
+                            ${issue.priority}
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold text-[14px]">${issue.title}</h3>
+                        <p class="gray-color text-[12px] pt-2">${issue.description}</p>
+                    </div>
+
+                    <div class="bug-help-enhance uppercase flex items-center gap-1 text-center">
+                        ${renderLabels(issue.labels)}
+                    </div>
+                </div>
+
+                <div class="border-t border-[#E4E4E7]"></div>
+
+                <div class="card-body gray-color text-[12px]">
+                    <p>#${issue.id} by ${issue.author}</p>
+                    <p>${updatedAt}</p>
+                </div>
+            </div>
+        `;
+    });
+};
+
+searchInput.addEventListener('input', (event) => {
+    const searchText = event.currentTarget.value.toLowerCase().trim();
+    // console.log(searchText);
+
+    searchIssues(searchText);
 });

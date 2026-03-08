@@ -1,6 +1,19 @@
 let allIssues = [];
 let currentStatus = 'all';
 
+// load  spinner
+const loadingSpinner = (isLoading) => {
+    const spinnerContainer = document.querySelector('#loading-spinner');
+
+    if (isLoading) {
+        spinnerContainer.classList.remove('hidden');
+        spinnerContainer.classList.add('flex');
+    } else {
+        spinnerContainer.classList.add('hidden');
+        spinnerContainer.classList.remove('flex');
+    }
+};
+
 // format user name
 const getName = (name) => {
     return name
@@ -39,7 +52,7 @@ const displayIssueModal = async(issueId) => {
                     <p class="gray-color">${issueData.description}</p>
 
                     <div class="bug-help-enhance uppercase space-y-2">
-                        ${renderLabels(issueData.labels)}
+                        ${displayLabels(issueData.labels)}
                     </div>
 
                     <div class="assigne-priority bg-[#F8FAFC] p-4 flex items-center justify-between mt-6">
@@ -131,27 +144,27 @@ const updateIssueCount = (status) => {
     issueNumber.innerText = `${total} Issues`;
 };
 
-// render labels
-const renderLabels = (labels) => {
+// display labels
+const displayLabels = (labels) => {
     const labelStyles = {
         'bug': {
-            classes: 'red-bg border border-[#EF4444] rounded-2xl md:py-1',
+            classes: 'red-bg border border-[#EF4444] rounded-2xl md:py-1 md:max-w-[100px]',
             icon: '<i class="fa-solid fa-bug"></i>'
         },
         'help wanted': {
-            classes: 'yellow-bg border border-[#D97706] rounded-2xl md:py-1',
+            classes: 'yellow-bg border border-[#D97706] rounded-2xl md:py-1 md:max-w-[100px]',
             icon: '<i class="fa-regular fa-life-ring"></i>'
         },
         'enhancement' : {
-            classes: 'green-bg border border-[#00A96E] rounded-2xl md:py-1',
+            classes: 'green-bg border border-[#00A96E] rounded-2xl md:py-1 md:max-w-[100px]',
             icon: '<i class="fa-regular fa-lightbulb"></i>'
         },
         'documentation' : {
-            classes: 'yellow-bg border border-[#D97706] rounded-2xl md:py-1',
+            classes: 'yellow-bg border border-[#D97706] rounded-2xl md:py-1 md:max-w-[100px]',
             icon: '<i class="fa-regular fa-clipboard"></i>'
         },
         'good first issue' : {
-            classes: 'gray-bg border border-[#9CA3AF] rounded-2xl md:py-1',
+            classes: 'gray-bg border border-[#9CA3AF] rounded-2xl md:py-1 md:max-w-[100px]',
             icon: '<i class="fa-brands fa-goodreads"></i>'
         }
     };
@@ -171,18 +184,47 @@ const renderLabels = (labels) => {
     return labelData;
 }
 
-// render issues
-const renderIssues = (status) => {
+// display issue card
+const displayIssueCard = (issue) => {
+    return `
+        <div id="issue-card" class="card bg-base-100 shadow-lg border-t-4 ${issue.status === 'open' ? 'border-[#00A96E]' : 'border-[#A855F7]'}">
+            <div class="card-body space-y-3">
+                <div class="issue-criteria flex items-center justify-between">
+                    <figure>
+                        <img src="assets/${issue.status === 'open' ? 'open-status.png' : 'closed-status.png' }" alt="${issue.status}">
+                    </figure>
+
+                    <p id="issue-frequency" class="${getPriorityStyle(issue.priority)} font-medium text-[12px] text-center max-w-[80px] rounded-2xl py-[6px] uppercase">
+                        ${issue.priority}
+                    </p>
+                </div>
+
+                <div class="issue-description">
+                    <h3 onclick="displayIssueModal(${issue.id})" class="clickable-title font-semibold text-[14px]">${issue.title}</h3>
+                
+                    <p class="gray-color text-[12px] pt-2">${issue.description}</p>
+                </div>
+
+                <div class="bug-help-enhance uppercase text-center flex gap-1 md:text-[8px]">
+                    ${displayLabels(issue.labels)}
+                </div>
+            </div>
+
+            <div class="border-t border-[#E4E4E7]"></div>
+
+            <div class="card-body gray-color text-[12px]">
+                <p>#${issue.id} by ${getName(issue.author)}</p>
+                <p>${getDate(issue)}</p>
+            </div>
+        </div>
+    `;
+};
+
+// display issue list
+const displayIssueList = (filteredIssues) => {
     const issueBottomContainer = document.querySelector('#issue-bottom-container');
 
     issueBottomContainer.innerHTML = '';
-
-    const filteredIssues = allIssues.filter(issue =>
-        (status === 'all')
-            ? true
-            : issue.status === status 
-    );
-    console.log(filteredIssues);
 
     if (filteredIssues.length === 0) {
         issueBottomContainer.innerHTML = `<div class="no-issues p-6 text-center gray-color">
@@ -193,47 +235,31 @@ const renderIssues = (status) => {
     }
 
     filteredIssues.forEach(issue => {
-        issueBottomContainer.innerHTML += `
-            <div id="issue-card" class="card bg-base-100 shadow-lg border-t-4 ${issue.status === 'open' ? 'border-[#00A96E]' : 'border-[#A855F7]'}">
-                <div class="card-body space-y-3">
-                    <div class="issue-criteria flex items-center justify-between">
-                        <figure>
-                            <img src="assets/${issue.status === 'open' ? 'open-status.png' : 'closed-status.png' }" alt="${issue.status}">
-                        </figure>
-
-                        <p id="issue-frequency" class="${getPriorityStyle(issue.priority)} font-medium text-[12px] text-center max-w-[80px] rounded-2xl py-[6px] uppercase">
-                            ${issue.priority}
-                        </p>
-                    </div>
-
-                    <div class="issue-description">
-                        <h3 onclick="displayIssueModal(${issue.id})" class="clickable-title font-semibold text-[14px]">${issue.title}</h3>
-                    
-                        <p class="gray-color text-[12px] pt-2">${issue.description}</p>
-                    </div>
-
-                    <div class="bug-help-enhance uppercase text-center space-y-2">
-                        ${renderLabels(issue.labels)}
-                    </div>
-                </div>
-
-                <div class="border-t border-[#E4E4E7]"></div>
-
-                <div class="card-body gray-color text-[12px]">
-                    <p>#${issue.id} by ${getName(issue.author)}</p>
-                    <p>${getDate(issue)}</p>
-                </div>
-            </div>
-        `;
+        issueBottomContainer.innerHTML += displayIssueCard(issue);
     });
+};
+
+// display issues
+const displayIssues = (status = 'all') => {
+    const filteredIssues = allIssues.filter(issue =>
+        (status === 'all')
+            ? true
+            : issue.status === status 
+    );
+    // console.log(filteredIssues);
+
+    displayIssueList(filteredIssues);
 };
 
 // load all issues
 const loadAllIssue = async() => {
+    loadingSpinner(true);
+
     const issueUrl = 'https://phi-lab-server.vercel.app/api/v1/lab/issues';
     const issueRes = await fetch(issueUrl);
     const issueData = await issueRes.json();
 
+    loadingSpinner(false);
     allIssues = issueData.data;
 };
 
@@ -251,7 +277,7 @@ const switchTab = () => {
 
         currentStatus = status;
 
-        renderIssues(status);
+        displayIssues(status);
         updateIssueCount(status);
     };
 
@@ -263,7 +289,7 @@ const switchTab = () => {
     const defaultTab = document.querySelector('.issue-tracker-btn[data-id="tab-all"]');
 
     activeButton(defaultTab);
-    renderIssues('all');
+    displayIssues('all');
     updateIssueCount('all');
 };
 
@@ -279,71 +305,43 @@ init();
 const searchInput = document.querySelector('#issue-search');
 // console.log(searchInput);
 
-const searchIssues = (searchText) => {
-    const issueBottomContainer = document.querySelector('#issue-bottom-container');
-
-    const filtered = allIssues.filter(issue => {
-        const filteredStatus =
-            currentStatus === 'all'
-            ? true
-            : issue.status === currentStatus;
+const searchIssues = async (searchText) => {
+    // const filteredIssues = allIssues.filter(issue => {
+    //     const filteredStatus =
+    //         currentStatus === 'all'
+    //         ? true
+    //         : issue.status === currentStatus;
             
-        const filteredSearch =
-            issue.title.toLowerCase().includes(searchText);
+    //     const filteredSearch =
+    //         issue.title.toLowerCase().includes(searchText);
 
-        return filteredStatus && filteredSearch;
-    });
+    //     return filteredStatus && filteredSearch;
+    // });
 
-    issueBottomContainer.innerHTML = '';
-
-    if (filtered.length === 0) {
-        issueBottomContainer.innerHTML = `
-            <div class="no-issues p-6 text-center gray-color">
-                <p>No issues found</p>
-            </div>
-        `;
+    if (!searchText) {
+        displayIssues(currentStatus);
 
         return;
     }
 
-    filtered.forEach(issue => {
-        issueBottomContainer.innerHTML += `
-            <div class="card bg-base-100 shadow-lg border-t-4 ${issue.status === 'open' ? 'border-[#00A96E]' : 'border-[#A855F7]'}">
-                <div class="card-body space-y-3">
+    loadingSpinner(true);
 
-                    <div class="issue-criteria flex items-center justify-between">
-                        <figure>
-                            <img src="assets/${issue.status === 'open' ? 'open-status.png' : 'closed-status.png'}">
-                        </figure>
+    const searchUrl = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`;
+    const searchRes = await fetch(searchUrl);
+    const searchData = await searchRes.json();
+    // console.log(searchData.data);
 
-                        <p class="${getPriorityStyle(issue.priority)} font-medium text-[12px] text-center max-w-[80px] rounded-2xl py-[6px] uppercase">
-                            ${issue.priority}
-                        </p>
-                    </div>
+    loadingSpinner(false);
 
-                    <div>
-                        <h3 class="font-semibold text-[14px]">${issue.title}</h3>
-                        <p class="gray-color text-[12px] pt-2">${issue.description}</p>
-                    </div>
-
-                    <div class="bug-help-enhance uppercase flex items-center gap-1 text-center">
-                        ${renderLabels(issue.labels)}
-                    </div>
-                </div>
-
-                <div class="border-t border-[#E4E4E7]"></div>
-
-                <div class="card-body gray-color text-[12px]">
-                    <p>#${issue.id} by ${getName(issue.author)}</p>
-                    <p>${getDate(issue)}</p>
-                </div>
-            </div>
-        `;
-    });
+    displayIssueList(searchData.data);
 };
 
 searchInput.addEventListener('input', (event) => {
-    const searchText = event.currentTarget.value.toLowerCase().trim();
+    const searchText = event
+        .currentTarget
+        .value
+        .toLowerCase()
+        .trim();
     // console.log(searchText);
 
     searchIssues(searchText);

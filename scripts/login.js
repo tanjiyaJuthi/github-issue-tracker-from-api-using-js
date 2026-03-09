@@ -12,7 +12,7 @@ const userLogin = () => {
 
         alert('Login Successful!');
 
-        window.location.href('home.html');
+        window.location.href = 'home.html';
     } else {
         alert('Login Failed!');
 

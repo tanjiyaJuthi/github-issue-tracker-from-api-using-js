@@ -91,7 +91,19 @@
                     <div id="issue-bottom-container" class="grid grid-cols-1 md:grid-cols-4 gap-[13px] p-[25px] border-t border-[#E4E4E7]"></div>
                 </div>
 
-                <div id="issue-modal"></div>
+                <div id="issue-modal">
+                    <dialog id="issue-modal-dialog" class="modal modal-bottom sm:modal-middle">
+                        <div class="modal-box">
+                            <div id="modal-content" class="space-y-6"></div>
+
+                            <div class="modal-action">
+                                <form method="dialog">
+                                    <button class="btn btn-primary">Close</button>
+                                </form>
+                            </div>
+                        </div>
+                    </dialog>
+                </div>
 
                 <div id="loading-spinner" class="h-[60vh] flex hidden justify-center items-center" >
                     <span class="loading loading-spinner text-success loading-xl" ></span>

@@ -1,7 +1,8 @@
 # Get and show data in website from API
-## GitHub Issues Tracker
+## GitHub Issues Tracker (Project of [Programming Hero](https://github.com/ProgrammingHero1/B13-A5-Github-Issue-Tracker))
 
-### **API Endpoints:**
+## ⚙️ API Endpoints
+
 ###  **All Issues:** 
   - https://phi-lab-server.vercel.app/api/v1/lab/issues 
 
@@ -12,48 +13,33 @@
    - Example: https://phi-lab-server.vercel.app/api/v1/lab/issue/33
 
 
-###  **Search Issue:** https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q={searchText}
+###  **Search Issue:** 
 
-   - Example:  https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=notifications
+   - Example: https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}
 
 
 ## ⚙️ Functionalities
-- In login page, there will be default admin credentials (username, password). You need to sign in using these credentials.
+- In login page, admin will be able to login.
 
-- Load all issues and display as per Figma
+- Load all issues.
 
-- On clicking on an open or closed tab, it will load the issues data of the related tab and show it in a display-like card in a 4-column layout like Figma. By default, it will show all data 
+- Switched tab and by default, it will show all data from API.
 
-- Each card shows:
-  - Title
-  - Description
-  - Status
-  - Category
-  - Author
-  - Priority
-  - Label
-  - CreatedAt
-- Clicking on a tree name in a card will open a modal and show all the information about that Issue. 
+- Clicking on a title name, it will open a modal and show all the information about that Issue. 
 
-- 1️⃣ What is the difference between var, let, and const?
-- 2️⃣ What is the spread operator (...)?
-- 3️⃣ What is the difference between map(), filter(), and forEach()?
-- 4️⃣ What is an arrow function?
-- 5️⃣ What are template literals?
-
----
+- What is the difference between var, let, and const?
+  - Main difference is in scope and hoisting. var is function scoped and let, const is block scoped. Hoisting is done, but in const and let, a temporal dead zone(TDZ) create.
+- What is the spread operator (...)?
+  - The operator which extends the elements of an array or object. It copies, merge array and objects.
+- What is the difference between map(), filter(), and forEach()?
+  - map and filter return new array but forEach return nothing.
+- What is an arrow function?
+  - A shorter syntex for writing functions.
+- What are template literals?
+  - It allow to insert multiple string.
 
 ## 🛠️ Technology Stack
 
 - **HTML**
 - **CSS** (Vanilla/Tailwind/DaisyUI)
 - **JavaScript** (Vanilla)
-
----
-
-## 🔑 Demo Credentials
-
-```text
-Username: admin
-Password: admin123
-```

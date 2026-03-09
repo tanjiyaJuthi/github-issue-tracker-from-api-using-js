@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="styles/tracker.css">
 </head>
 <body class="min-h-screen flex items-center justify-center bg-base-200">
-    <main class="w-full md:w-4/12 max-w-[520px] p-8 shadow-xl bg-white rounded-lg">
+    <main class="w-full max-w-[420px] p-6 md: p-8 shadow-xl bg-white rounded-lg">
         <div class="login-container space-y-6">
             <div class="login-top text-center">
                 <img class="mx-auto" src="assets/github-logo.png" alt="Github">
@@ -26,20 +26,29 @@
                 <p class="gray-color text-[18px]">Sign in to manage your issues</p>
             </div>
 
-            <div class="login-bottom">
+            <div class="login-middle">
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Username</legend>
-                    <input type="email" class="input w-full bg-[#F8FAFC] focus:outline-none focus:ring-0 border-[#ececef]" placeholder="Email" />
+                    <input id="login-user-name" type="text" class="input w-full bg-[#F8FAFC] focus:outline-none focus:ring-0 border-[#ececef]" placeholder="Email" />
 
                     <legend class="fieldset-legend">Password</legend>
-                    <input type="password" class="input w-full bg-[#F8FAFC] focus:outline-none focus:ring-0 border-[#ececef]" placeholder="Enter Password" />
+                    <input id="login-password" type="password" class="input w-full bg-[#F8FAFC] focus:outline-none focus:ring-0 border-[#ececef]" placeholder="Enter Password" />
 
-                    <button class="btn btn-primary mt-4">Sign In</button>
+                    <button id="login-btn" class="btn btn-primary mt-4">Sign In</button>
                 </fieldset>
+            </div>
+            
+            <div class="login-bottom text-center mt-4">
+                <h3 class="gray-color text-[14px]">Demo Credentials:</h3>
+
+                <div class="user-password-container mt-2 bg-[#F8FAFC] p-6 text-[14px]">
+                    <p><strong>Username:</strong> admin</p>
+                    <p><strong>Password:</strong> admin123</p>
+                </div>
             </div>
         </div>
     </main>
 
-    <script src="scripts/tracker.js"></script>
+    <script src="scripts/login.js"></script>
 </body>
 </html>

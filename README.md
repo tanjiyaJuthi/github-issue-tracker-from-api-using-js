@@ -1,5 +1,4 @@
 # Get and show data in website from API
-## GitHub Issues Tracker (Project of [Programming Hero](https://github.com/ProgrammingHero1/B13-A5-Github-Issue-Tracker))
 
 ## ⚙️ API Endpoints
 
